@@ -1,0 +1,72 @@
+Taking data from records.json 
+In [18]:
+import json
+fd = open("records.json",'r')
+r = fd.read()
+fd.close()
+record = json.loads(r)
+
+Purchase function and also
+
+In [ ]:
+prod_id,quant = input("Enter the product Id and Quantity(Please give a space between productID and quantity)\n").split()
+q=int(quant)
+print('--------------------------------------------------------')
+if prod_id in record:
+  if q<=record[prod_id]['qn']:
+    record[prod_id]['qn']-=q
+    print('--------------------------------------------------------')
+    print("  Product name:",record[prod_id]['name'])
+    print("  Product price:",record[prod_id]['pr'])
+    print("  Billing amount:",record[prod_id]['pr']*q)
+
+    print('--------------------------------------------------------')
+
+  else:
+    print('--------------------------------------------------------')
+    print('--------------------------------------------------------')
+    print("  Required quantity is not available. Available quantity is:",record[prod_id]['qn'])
+    print("  Product name:",record[prod_id]['name'])
+    print("  Product price:",record[prod_id]['pr'])
+    print('--------------------------------------------------------')
+    print('--------------------------------------------------------')
+else:
+  print('--------------------------------------------------------')
+  print("  Sorry, This product is not available")
+  print('--------------------------------------------------------')
+
+Read Inventory,Update Inventory and Adding a new item in Invertory
+
+In [ ]:
+n=int(input("If you want to see the product list then press 1\nIf you adding some quantity of product or adding new product press 2\n"))
+print('--------------------------------------------------------')
+if n==1:
+  print(record)
+else:
+  prod_id = input("Enter the productID\n")
+  if prod_id in record:
+    q = int(input("Enter the Quantity\n"))
+    record[prod_id]['qn']+=q
+  else:
+    name = (input("Enter the Name Of Product\n"))
+    q = int(input("Enter the Quantity\n"))
+    p = int(input("Enter the Price\n"))
+    record[prod_id] = {'name': name, 'pr': p, 'qn': q}
+  print("Successfully Added")
+print('--------------------------------------------------------')
+print('--------------------------------------------------------')
+
+saving an updated file in records.json
+
+In [22]:
+import json
+js = json.dumps(record)
+fd = open('records.json','w')
+fd.write(js)
+fd.close()
+
+import json
+fd = open("records.json",'r')
+r = fd.read()
+fd.close()
+rec = json.loads(r)
